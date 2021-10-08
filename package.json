@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/nickytonline/epic-actions#readme",
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-xo": "^0.39.0",
     "prettier": "^2.4.1"
   }
 }
