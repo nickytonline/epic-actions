@@ -1,4 +1,3 @@
-
 ## What type of PR is this? (check all applicable)
 
 - [ ] Refactor
@@ -19,7 +18,7 @@ images for UI changes._
 
 ### UI accessibility concerns?
 
-_If your PR includes UI changes, please replace this line with details on how
+\_If your PR includes UI changes, please replace this line with details on how
 accessibility is impacted and tested.
 
 ## Added/updated tests?
