@@ -10,11 +10,17 @@
     "type": "git",
     "url": "git+https://github.com/nickytonline/epic-actions.git"
   },
-  "keywords": ["github", "github-actions"],
+  "keywords": [
+    "github",
+    "github-actions"
+  ],
   "author": "Nick Taylor",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nickytonline/epic-actions/issues"
   },
-  "homepage": "https://github.com/nickytonline/epic-actions#readme"
+  "homepage": "https://github.com/nickytonline/epic-actions#readme",
+  "devDependencies": {
+    "prettier": "^2.4.1"
+  }
 }
