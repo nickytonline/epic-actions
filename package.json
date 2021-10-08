@@ -1,0 +1,20 @@
+{
+  "name": "epic-actions",
+  "version": "1.0.0",
+  "description": "Epic GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickytonline/epic-actions.git"
+  },
+  "keywords": ["github", "github-actions"],
+  "author": "Nick Taylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickytonline/epic-actions/issues"
+  },
+  "homepage": "https://github.com/nickytonline/epic-actions#readme"
+}
