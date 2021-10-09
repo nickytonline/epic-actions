@@ -18,7 +18,7 @@ async function run(){
 }
 async function isFirstPull(login){
     const {owner,repo} = context.repo;
-    const query = `org:${owner} is:pull-request state:all author:${login}`;
+    const query = `org:${owner}/${repo} is:pull-request author:${login}`;
     core.info(query);
     const {data: result} = await octokit.rest.search.issuesAndPullRequests({
         q:query,
