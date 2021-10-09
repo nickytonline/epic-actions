@@ -8,3 +8,8 @@ branding:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+inputs:
+  repo-token:
+    required: true
+    default: ''
+    description: 'GitHub Token'
