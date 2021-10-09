@@ -31,7 +31,7 @@ async function addLabel(number,name){
     await octokit.rest.issues.addLabels({
         ...context.repo,
         issue_number: number,
-        labels: [ { name } ]
+        labels: [ name ]
     })
 }
 run();
