@@ -18,13 +18,13 @@ async function run(){
 }
 async function isFirstPull(login){
     const {owner,repo} = context.repo;
-    const query = `org:${repo} repo:${repo} is:pull-request state:all author:${login}`;
+    const query = `org:${owner} is:pull-request state:all author:${login}`;
     core.info(query);
     const {data: result} = await octokit.rest.search.issuesAndPullRequests({
         q:query,
         per_page:5
     });
-    core.info(JSON.stringify(result,null,"\t"))
+    core.info(JSON.stringify(result,null,"\t"));
     return result.total_count <= 1;
 }
 async function addLabel(number,name){
