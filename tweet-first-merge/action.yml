@@ -13,3 +13,15 @@ inputs:
     required: true
     default: ''
     description: 'GitHub Token'
+  message-template:
+    required: true
+    default: >
+      Congrats to @%handle% on getting a first merged PR!!!
+
+      🎉🎉🎉
+
+      %url%
+    description: >
+      Message template. The string "%handle%" will be replaced with
+      the detected Twitter handle of the contributor, and the string 
+      %url% will be replaced with the URL of the PR.
