@@ -25,3 +25,11 @@ inputs:
       Message template. The string "%handle%" will be replaced with
       the detected Twitter handle of the contributor, and the string 
       %url% will be replaced with the URL of the PR.
+outputs:
+  valid:
+    description: > 
+      Set to true if first merged PR detected *AND* 
+      contributor's twitter handle detected.
+  message:
+    description: >
+      Set to tweet message value or blank text if valid == false.

@@ -15,11 +15,16 @@ async function run(){
             if(twitterHandle !== null){
                 let message = messageTemplate.replace(/%handle%/gi,twitterHandle).replace(/%url%/gi,url);
                 core.info(`Ready to Tweet:\n${message}`);
+                core.setOutput('valid',true);
+                core.setOutput('message',message);
+                return;
             }
         }
     } catch(error){
         if(error instanceof Error) core.setFailed(error.message);
     }
+    core.setOutput('valid',false);
+    core.setOutput('message',"");
 }
 async function getTwitterHandle(login){
     const {data: {twitter_username}} = await octokit.rest.users.getByUsername({username:login});
@@ -28,7 +33,6 @@ async function getTwitterHandle(login){
 async function isFirstPull(login){
     const {owner,repo} = context.repo;
     const query = `repo:${owner}/${repo} is:pull-request author:${login}`;
-    core.info(query);
     const {data: {total_count}} = await octokit.rest.search.issuesAndPullRequests({
         q:query,
         per_page:5
