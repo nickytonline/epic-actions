@@ -1,0 +1,10 @@
+name: tweet-first-merge
+description: >
+  GitHub Action to tweet in celebration of contributor's first merged PR
+author: Nick Taylor, Matthew Foley
+branding:
+  icon: git-pull-request
+  color: blue
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
