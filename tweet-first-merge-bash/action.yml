@@ -12,3 +12,11 @@ inputs:
     # %USER% will be replaced with `twitter_username` from GitHub
     default: >
       Congrats on the first merge, @%USER%!
+runs:
+  using: composite
+  steps:
+    - id: validate
+      shell: bash
+      run: |
+        LOGIN=${{ github.event.pull_request.user.login }}
+        curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \" | echo
