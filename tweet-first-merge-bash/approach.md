@@ -30,3 +30,4 @@ CLI's:
 ## Docs we need
 - defining a twitter app with secrets and stuff (how to)
 - make sure you're using an app that has permissions for the account you want to use
+- example workflow file
