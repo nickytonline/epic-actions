@@ -20,3 +20,4 @@ runs:
       run: |
         LOGIN=${{ github.event.pull_request.user.login }}
         HANDLE="$(curl -s H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \")"
+        echo $HANDLE
