@@ -1,0 +1,11 @@
+name: tweet
+on:
+  pull_request_target:
+    types:
+      - opened
+
+jobs:
+  tweet-first-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nickytonline/epic-actions/tweet-first-merge-bash@tweet-first-merge-bash
