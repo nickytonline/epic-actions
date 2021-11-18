@@ -33,7 +33,7 @@ runs:
         TWEET=""
         if [ "$HANDLE" != "null" ] && [ "$FIRST" = "true" ]; then
           # need to use different delimiter in sed since URL will have /
-          TWEET="$(echo $INPUT_TEMPLATE_MESSAGE | sed "s#%handle%#$HANDLE#g; s#%url%#$URL#g")"
+          TWEET="$(echo $INPUT_TEMPLATE-MESSAGE | sed "s#%handle%#$HANDLE#g; s#%url%#$URL#g")"
         fi
         echo $TWEET
         echo "::set-output name=tweet::$TWEET"
