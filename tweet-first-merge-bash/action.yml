@@ -14,10 +14,19 @@ inputs:
       Congrats on the first merge, @%USER%!
 runs:
   using: composite
+  # In this step we want to do the following:
+  # 1) Gather GitHub Handle
+  # 2) Gather twitter handle from GitHub profile
+  # 3) Check whether this is the first PR for this user on this org
+  #   github.com/search?q=repo:$REPO author:$LOGIN is:pull-request
+  # 4) If all is good, pass non-blank string to output.
   steps:
     - id: validate
       shell: bash
       run: |
         LOGIN=${{ github.event.pull_request.user.login }}
         HANDLE="$(curl -s H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \")"
-        echo $HANDLE
+        REPO=${{ github.event.repository.full_name }}
+        FIRST="$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/search/issues?q=repo%3A$REPO+author%3A$LOGIN+is%3Apull-request | jq '.total_count <= 1')"
+        echo $REPO
+        echo $FIRST
