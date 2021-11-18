@@ -27,6 +27,7 @@ runs:
       shell: bash
       run: |
         LOGIN=${{ github.event.pull_request.user.login }}
+        TWEET_TEMPLATE=${{ inputs.template-message }}
         HANDLE="$(curl -s H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \")"
         REPO=${{ github.event.repository.full_name }}
         FIRST="$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/search/issues?q=repo%3A$REPO+author%3A$LOGIN+is%3Apull-request+is%3Amerged | jq '.total_count <= 1')"
