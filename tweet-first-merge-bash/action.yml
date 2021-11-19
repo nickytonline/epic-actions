@@ -13,7 +13,9 @@ inputs:
     default: >
       Congrats on the first merge, @%handle%!
 
-      %url%
+      %pr_url%
+
+      %user_url%
 runs:
   using: composite
   # In this step we want to do the following:
@@ -29,7 +31,8 @@ runs:
         TEMPLATE: ${{ inputs.template }}
       run: |
         LOGIN=${{ github.event.pull_request.user.login }}
-        URL=${{ github.event.pull_request.user.html_url }}
+        PR_URL=${{ github.event.pull_request.user.html_url }}
+        USER_URL=${{ github.event.pull_request.html_url}}
         HANDLE="$(curl -s H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \")"
         REPO=${{ github.event.repository.full_name }}
         FIRST="$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/search/issues?q=repo%3A$REPO+author%3A$LOGIN+is%3Apull-request+is%3Amerged | jq '.total_count <= 1')"
@@ -37,7 +40,8 @@ runs:
         if [ "$HANDLE" != "null" ] && [ "$FIRST" = "true" ]; then
           # need to use different delimiter in sed since URL will have /
           TWEET="${TEMPLATE/\%handle%/$HANDLE}"
-          TWEET="${TWEET/\%url%/$URL}"
+          TWEET="${TWEET/\%pr_url%/$PR_URL}"
+          TWEET="${TWEET/\%user_url%/$USER_URL}"
         fi
         echo "::set-output name=tweet::$TWEET"
         echo $TWEET
