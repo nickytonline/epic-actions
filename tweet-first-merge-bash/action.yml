@@ -6,7 +6,7 @@ branding:
   icon: git-pull-request
   color: blue
 inputs:
-  template-message:
+  template:
     description: Template Message To Tweet
     required: true
     # %USER% will be replaced with `twitter_username` from GitHub
@@ -25,15 +25,19 @@ runs:
   steps:
     - id: validate
       shell: bash
+      env:
+        TEMPLATE: ${{ inputs.template }}
       run: |
         LOGIN=${{ github.event.pull_request.user.login }}
+        URL=${{ github.event.pull_request.user.html_url }}
         HANDLE="$(curl -s H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \")"
         REPO=${{ github.event.repository.full_name }}
         FIRST="$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/search/issues?q=repo%3A$REPO+author%3A$LOGIN+is%3Apull-request+is%3Amerged | jq '.total_count <= 1')"
         TWEET=""
         if [ "$HANDLE" != "null" ] && [ "$FIRST" = "true" ]; then
           # need to use different delimiter in sed since URL will have /
-          TWEET="$(echo $INPUT_TEMPLATE-MESSAGE | sed "s#%handle%#$HANDLE#g; s#%url%#$URL#g")"
+          TWEET="${TEMPLATE/\%handle%/$HANDLE}"
+          TWEET="${TWEET/\%url%/$URL}"
         fi
         echo "::set-output name=tweet::$TWEET"
         echo $TWEET
