@@ -19,7 +19,7 @@ It should make sure the PR is merged, but we may turn this off for testing
 This would get referred to by: nickytonline/epic-actions/tweet-first-merge-bash@tweet-first-merge-bash
 
 ## Stuff we could use
-Action: devigned/go-twitter-action@v1.0.2
+Action: snow-actions/tweet
 Action: actions/first-interaction
 CLI's:
     curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \"
