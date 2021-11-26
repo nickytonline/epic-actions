@@ -26,13 +26,14 @@ runs:
   # 4) If all is good, pass non-blank string to output.
   steps:
     - id: validate
+      # if: ${{ github.event.pull_request.merged }}
       shell: bash
       env:
         TEMPLATE: ${{ inputs.template }}
       run: |
         LOGIN=${{ github.event.pull_request.user.login }}
-        PR_URL=${{ github.event.pull_request.user.html_url }}
-        USER_URL=${{ github.event.pull_request.html_url}}
+        USER_URL=${{ github.event.pull_request.user.html_url }}
+        PR_URL=${{ github.event.pull_request.html_url}}
         HANDLE="$(curl -s H "Authorization: token $GITHUB_TOKEN" https://api.github.com/users/$LOGIN | jq .twitter_username | tr -d \")"
         REPO=${{ github.event.repository.full_name }}
         FIRST="$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/search/issues?q=repo%3A$REPO+author%3A$LOGIN+is%3Apull-request+is%3Amerged | jq '.total_count <= 1')"
@@ -45,3 +46,18 @@ runs:
         fi
         echo "::set-output name=tweet::$TWEET"
         echo $TWEET
+    - id: tweet
+      if: ${{ steps.validate.outputs.tweet != ''}}
+      shell: bash
+      env:
+        TWEET: ${{ steps.validate.outputs.tweet }}
+      run: |
+        echo "Found Tweet: $TWEET"
+#      uses: snow-actions/tweet@v1.1.1
+#      env:
+#        CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+#        CONSUMER_API_SECRET_KEY: ${{ secrets.TWITTER_CONSUMER_API_SECRET_KEY }}
+#        ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+#        ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+#      with:
+#          status: ${{ steps.validate.outputs.tweet }}
