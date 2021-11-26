@@ -30,6 +30,7 @@ runs:
       shell: bash
       env:
         TEMPLATE: ${{ inputs.template }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         LOGIN=${{ github.event.pull_request.user.login }}
         USER_URL=${{ github.event.pull_request.user.html_url }}
