@@ -26,7 +26,7 @@ runs:
   # 4) If all is good, pass non-blank string to output.
   steps:
     - id: validate
-      # if: ${{ github.event.pull_request.merged }}
+      if: ${{ github.event.pull_request.merged }}
       shell: bash
       env:
         TEMPLATE: ${{ inputs.template }}
