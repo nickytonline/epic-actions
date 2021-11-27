@@ -45,14 +45,13 @@ runs:
           TWEET="${TWEET/\%user_url%/$USER_URL}"
         fi
         echo "::set-output name=tweet::$TWEET"
+        echo "TWEET=$TWEET" >> GITHUB_ENV
         echo $TWEET
     - id: tweet
       if: ${{ steps.validate.outputs.tweet != ''}}
       shell: bash
-#      env:
-#        TWEET: ${{ steps.validate.outputs.tweet }}
       run: |
-        echo "Found Tweet: $TWEET"
+        echo "Found Tweet: ${{ env.TWEET }}"
 #      uses: snow-actions/tweet@v1.1.1
 #      env:
 #        CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
