@@ -45,7 +45,7 @@ runs:
           TWEET="${TWEET/\%user_url%/$USER_URL}"
         fi
         echo "::set-output name=tweet::$TWEET"
-        echo "TWEET=$TWEET" >> GITHUB_ENV
+        echo "TWEET=$TWEET" >> $GITHUB_ENV
         echo $TWEET
     - id: tweet
       if: ${{ steps.validate.outputs.tweet != ''}}
